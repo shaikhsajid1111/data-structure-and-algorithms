@@ -4,7 +4,15 @@ struct Node{
 	int data;
 	struct Node *left,*right;
 };
+/*
+Structure:
+	root_element  
+	|
+	|
+	|
+ 3--5 -------4
 
+*/
 
 struct Node *newNode(int data);
 struct Node *insert(struct Node *root,int data);
@@ -47,7 +55,7 @@ struct Node *insert(struct Node *root,int data){
 void inOrder(struct Node *root){
 	if(root != NULL){
 		inOrder(root->left);
-		printf("$d\n",root->data);
+		printf("%d\n",root->data);
 		inOrder(root->right);
 	}
 }

@@ -1,17 +1,26 @@
 #include<iostream>
-
+#include<cstdlib>
 struct Node{
 	int data;
 	Node *next;
 };
 Node *new_node(int value);
-Node *insert(int value);
+Node *insert(Node *start,int value);
 void printValue(Node *node);
 bool is_there(Node *node,int value);
 
 int main(int argc, char const *argv[])
 {
-
+	
+	Node* root = new_node(4);
+	insert(root,5);
+	insert(root,6);
+	insert(root,7);
+	insert(root,8);
+	printValue(root);
+	Node *list = new_node(9);
+	printValue(list);
+	system("pause");
 	return 0;
 }
 
@@ -35,10 +44,9 @@ Node *insert(Node *start,int value){
 	return current;
 }
 void printValue(Node *node){
-	Node *current = node;
-	while(current->next != NULL){
-		std::cout << current->data<< std::endl;
-		current = current->next;
+	while(node != NULL){
+		std::cout << node->data<< std::endl;
+		node = node->next;
 	}
 }
 bool is_there(Node *node,int value){

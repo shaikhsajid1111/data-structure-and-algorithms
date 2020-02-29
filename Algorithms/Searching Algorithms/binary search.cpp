@@ -3,6 +3,28 @@
 
 int binarySearch(int arr[],int start,int end,int value);
 
+/*
+process to find:
+	 _____
+	|	  |			 
+	|	  |
+	|  1  |
+	|_____| 
+	|	  |
+	|  2  |
+	|_____| 
+	|	  |
+	|  3  |		middle, if value is less than finding value, it'll recurse from middle-1 and if it
+	|_____| 	is greater, it'll recurse middle+1
+	|	  |
+	|  4  |
+	|_____|
+	|  5  |
+	|_____|
+
+*/
+
+
 int main(int argc, char const *argv[])
 {
 	int arr[] = {1,2,3,4,5,6,7,8,9,10,11,12};
