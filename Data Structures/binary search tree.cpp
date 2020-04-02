@@ -24,7 +24,9 @@ struct Node* deleteNode(struct Node *root,int value);
 
 int main(int argc, char const *argv[])
 {
-	
+	struct Node *branch = NULL;
+	branch = insert(branch,5);
+	inOrder(branch);
 	return 0;
 }
 

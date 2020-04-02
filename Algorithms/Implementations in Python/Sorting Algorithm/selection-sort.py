@@ -1,6 +1,8 @@
 import os
 
 def selection_sort(arr):
+	if len(arr)<2:
+		return arr
 	for i in range(len(arr)):
 		min_index = i
 		for j in range(i+1,len(arr)):
