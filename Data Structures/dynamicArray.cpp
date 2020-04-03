@@ -7,24 +7,20 @@ private:
 	
 	unsigned int len = 0;	//length user thinks
 	unsigned int capacity = 0;	//actual array size
-	T arr[];
+	T *arr = new T;
 
 public:
 	/*constructors*/
 	dynamicArray(){
 		capacity = 2;
 	}
-	dynamicArray(int capacity){
-		this->capacity = capacity;
-		T arr[this->capacity];
-	}
-
+	
 	int size();
 	bool isEmpty();
 	T get(int index);
 	void set(int index,T elem);
 	void clear();
-	T *add(T elem);
+	void add(T elem);
 	T removeAt(int rm_index);
 	bool remove(dynamicArray obj);
 
@@ -36,12 +32,12 @@ public:
 int main(int argc, char const *argv[])
 {
 	dynamicArray<int> arr;
-	arr.add(1);
-	for (int i = 0; i < 100; ++i)
-	{
-		arr.add(i);
-	}
-	cout << arr.get(0);
+	//arr.add(1);
+	arr.add(5);
+	arr.add(45);
+	cout << arr.get(0) << endl;
+	cout << arr.get(1) << endl;
+	
 
 	system("pause");
 	return 0;
@@ -75,7 +71,8 @@ void dynamicArray<T>::clear(){
 
 
 template <class T>
-T *dynamicArray<T>::add(T elem){
+void dynamicArray<T>::add(T elem){
+	
 	if (len + 1 > capacity)
 	{
 		if (capacity == 0)
@@ -87,7 +84,7 @@ T *dynamicArray<T>::add(T elem){
 		}
 	}
 
-	cout << capacity << endl;
+	//cout << capacity << endl;
 	T *new_arr;
 	new_arr = new T[capacity];
 	for (int i = 0; i < len; ++i)
@@ -97,8 +94,9 @@ T *dynamicArray<T>::add(T elem){
 	}
 	/*adding the last value*/
 	new_arr[len++] = elem;
+	arr = new_arr;
 	
-	return new_arr;
+	
  }
 
 
