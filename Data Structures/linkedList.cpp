@@ -1,9 +1,12 @@
 #include<iostream>
 #include<cstdlib>
+
+
 struct Node{
 	int data;
 	Node *next;
 };
+
 Node *new_node(int value);
 Node *insert(Node *start,int value);
 void printValue(Node *node);
@@ -17,6 +20,10 @@ int main(int argc, char const *argv[])
 	insert(root,6);
 	insert(root,7);
 	insert(root,8);
+	for (int i = 0; i < 15000; ++i)
+	{
+		insert(root,i);
+	}
 	printValue(root);
 	Node *list = new_node(9);
 	printValue(list);
@@ -80,3 +87,4 @@ void deleteNode(Node **head_reference,int key){
 	prev->next = temp->next;
 	free(temp);
 }
+

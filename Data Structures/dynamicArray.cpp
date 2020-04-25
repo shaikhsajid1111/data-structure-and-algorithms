@@ -1,7 +1,7 @@
 #include <iostream>
 #include<cstdlib>
 #include<stdexcept>
-using namespace std;
+
 template <typename T> class dynamicArray{
 private:
 	
@@ -25,6 +25,7 @@ public:
 	bool remove();
 
 	int indexOf(T elem,int start = 0);
+	void traverse();
 	
 };
 
@@ -49,9 +50,14 @@ int main(int argc, char const *argv[])
 	{
 		cout << arr.get(i) << endl;
 	}*/
-	dynamicArray<int> arr;
+	dynamicArray<double> arr;
 
-	cout << arr.isEmpty();
+	//std::cout << arr.isEmpty();
+	for (int i = 0; i < 150; ++i)
+	{
+		arr.add(i + 3);
+	}
+	arr.traverse();
 	system("pause");
 	return 0;
 }
@@ -167,4 +173,15 @@ int dynamicArray<T>::indexOf(T elem,int start){
 	}
 	/*if element was not present, it will return -1*/
 	return -1;
+}
+template <class T>
+void dynamicArray<T>::traverse(){
+	if (len == 0)
+	{
+		std::cout << "Array is empty!" << std::endl;
+	}
+	for (int i = 0; i < len; ++i)
+	{
+		std::cout << arr[i] << std::endl;
+	}
 }
