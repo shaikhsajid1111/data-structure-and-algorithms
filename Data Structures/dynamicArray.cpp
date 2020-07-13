@@ -10,7 +10,7 @@ private:
 	T *arr = new T;
 
 public:
-	/*constructors*/
+	/*constructor*/
 	dynamicArray(){
 		capacity = 2;
 	}

@@ -6,11 +6,11 @@ struct Node{
 };
 /*
 Structure:
-	root_element  
+root_element  
 	|
 	|
 	|
- 3--5 -------4
+ 3--5--4
 
 */
 

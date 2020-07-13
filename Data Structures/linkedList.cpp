@@ -11,7 +11,7 @@ Node *new_node(int value);
 Node *insert(Node *start,int value);
 void printValue(Node *node);
 bool is_there(Node *node,int value);
-
+void deleteNode(Node **head_ref,int pos);
 int main(int argc, char const *argv[])
 {
 	
@@ -68,23 +68,32 @@ bool is_there(Node *node,int value){
 	return false;
 }
 
-
-void deleteNode(Node **head_reference,int key){
-	struct Node *temp = *head_reference,*prev;
-
-	/*if node itself contains the value that has to be deleted*/
-	if(temp != NULL && temp->data == key){	/*if temp is not and temp has value that was asked to delete*/
-		*head_reference = temp->next;	/*moving the head of the LL towards next value, which'll become head*/
-		free(temp);		/*free the space*/
+void deleteNode(Node **head_ref,int pos){
+	//empty linked list
+	if (*head_ref == NULL)
+	{
 		return;
 	}
 
-	while(temp != NULL && temp->data != key){/*until and unless the temp reaches NULL and data doesn't matches key*/
-		prev = temp;	/*stirung current value in prev variable*/
-		temp = temp->next;	/*than switching towards the next value*/
+	/*head node*/
+	Node *temp = *head_ref;
+	/*if pos is head*/
+	if (pos == 0)
+	{
+		*head_ref = temp->next;			/*moving head to next head*/
+		free(temp);
+		return;
 	}
-	if(temp == NULL) return;	/*if LL is already empty*/
-	prev->next = temp->next;
-	free(temp);
+	for (int i = 0; temp != NULL && i < pos-1; ++i)
+	{
+		temp = temp->next;
+	}
+	if (temp == NULL || temp->next == NULL)
+	{
+		return;
+	}
+	Node *next = temp->next->next;
+	free(temp->next);
 }
+
 

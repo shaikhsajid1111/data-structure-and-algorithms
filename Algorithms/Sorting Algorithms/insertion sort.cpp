@@ -15,6 +15,19 @@ int main(int argc, char const *argv[])
 }
 int *insertion_sort(int arr[],int size){
 	/*iterate from 1 - length of array*/
+	/*logic:
+	arr = {5,4,3,2,1} -> 
+	start from 1 till the last index of array
+	1) position is greater than 0? and [position-1] i.e value before this position in 
+	array is greater than the current?,{5,4,3,2,1}, arr[1] and arr[0] > 4. So condition is true 
+		
+		if both condition are true than,
+		replace current position[value] with the previous one[value], -> {5,5,3,2,1}
+		so, index will be decremented by 1, so it becomes 0, so while loop will terminate
+		arr[0] = current_value; which is 4. So array becomes {4,5,3,2,1}
+		
+		
+	*/
 	for(int index = 1;index < size;index++){
 		int current_value = arr[index];			//index's value in array
 		int position = index;				//current index

@@ -7,3 +7,11 @@ def quick_sort(arr):
 	right = [x for x in arr if x > pivot]	#pivot == middle
 	return quick_sort(left) + middle + quick_sort(right) 
 print(quick_sort([5,4,28,88,0,1,-9,-99,55]))		#outputs -> [-99,-9,0,1,4,5,28,55,88]
+
+
+class TikTok(object):
+	"""docstring for TikTok"""
+	def __init__(self, arg):
+		super(TikTok, self).__init__()
+		self.arg = arg
+		
