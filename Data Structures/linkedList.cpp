@@ -42,13 +42,14 @@ class LinkedList
 		count = 0;
 	}
 
-	void createNode(int value);	/*method to create a new node*/
+	void insert(int value);	/*method to create a new node*/
 	void display();	/*method to display all value of nodes of linkedlist*/
 	void insertAtFront(int value);		/*method to insert element at head of linkedlist*/
 	void insertAtPosition(int pos,int value);/*method to insert Element at some given position of linked list*/
 	void deleteAtFront();	/*method to delete element at head of linked list*/
 	void deleteAtEnd();	/*method to delete element at the end(tail) of linked list*/
 	void deleteAtPosition(int pos);	/*method to delete element at some position of linked list*/
+	void sortLinkedList();
 };
 
 
@@ -56,18 +57,21 @@ int main(int argc, char const *argv[])
 {
 
 	LinkedList llist;
-	llist.createNode(25);
-	l.insertAtFront(22);
-	l.createNode(78);
+	for(int i = 100;i > 0;i--){
+		llist.insert(i);
+	}
+	//llist.insertAtFront(22);
+	
 	//l.insertAtPosition(4,45);
 	/*22,25,78*/
-	//l.deleteAtPosition(45);
+	llist.deleteAtPosition(45);
+	//llist.sortLinkedList();
 	llist.display();
 	system("pause");
 	return 0;
 }
 
-void LinkedList::createNode(int value){
+void LinkedList::insert(int value){
 	
 	node *temp = new node; /*allocate new node*/
 	
@@ -102,11 +106,19 @@ void LinkedList::display(){
 	}
 }
 void LinkedList::insertAtFront(int value){
+	/*
+	 * steps:
+	 1. Create a new node
+	 2. Put given value into that node
+	 3. point temp's nextNode' to head directly
+	 4. And re-init the head to temp
+	 * */
 	node *temp = new node;	/*create new node*/
-
 	if(temp == NULL){
 		std::cout << "Failed to allocate memory!";
 	}
+	
+	
 	temp->data = value;		/*init that node's(temp) data value = data*/
 	temp->nextNode = head;	/*init temp's next node value to front of current linkedlist*/
 	head = temp;		/*make this node as first node*/
@@ -115,8 +127,11 @@ void LinkedList::insertAtFront(int value){
 
 void LinkedList::insertAtPosition(int pos,int value){
 	/*
-	1. Pass the address of the new node in the next field of the previous node.
-	2. Pass the address of the current node in the next field of the new node.
+	1. Make 2 pointer and temp of type node, first to hold address of previous node and one to keep addres of current node
+	2. iterate over linked list for pos number of times
+	3. after iteration,insert value into that node 
+	4. now change the nextNode of previous pointer node such that it point towards temp node
+	5. change the temp node's nextNode to point towards the currentNode's nextNode
 	*/
 	/*if given index is not present in linked list*/
 	if(count < pos-1){
@@ -144,11 +159,17 @@ void LinkedList::insertAtPosition(int pos,int value){
 
 	/*insert node into the linkedlist at pos*/
 	addressOfPreviousNode->nextNode = temp;
-	temp->nextNode = addressOfCurrentNode;
+	temp->nextNode = addressOfCurrentNode;	/*join the nextNode of temp to its next memory location*/
 	count++;
 }
 
 void LinkedList::deleteAtFront(){
+	/*
+	 1. Create a temp node of type node
+	 2. Assign temp with head node 
+	 3. assign head the value of its ahead node, that is move ahead by 1 pos
+	 4. now delete that temp var, which has stored previous head address.
+	 */
 	/*if no element is present in linked list*/
 	if(count < 1){
 		std::cout << "Linked List is empty!";
@@ -177,8 +198,7 @@ void LinkedList::deleteAtEnd(){
 
 	currentNode = head;		/*currentNode will start iterating from head of the linked list*/
 
-	while(currentNode->nextNode
-	 !=  NULL){	/*start iterating over the linkedlist,from head*/
+	while(currentNode->nextNode !=  NULL){	/*start iterating over the linkedlist,from head*/
 		previousNode = currentNode;	/*previousNode will hold the node of currentNode that is pos-1*/
 		currentNode = currentNode->nextNode;/*while the currentNode will hold node of its ahead node that it pos+1*/
 	}
@@ -211,4 +231,34 @@ void LinkedList::deleteAtPosition(int pos){
 	/*we have moved to required positions*/
 	previousNode->nextNode = currentNode->nextNode;	/*assign previousNode the value of currentNode's next element and skip currentNode's node which will be skipped or deleted*/
 	count--;
+}
+
+void LinkedList::sortLinkedList(){
+	node *currentNode = new node;	/*currentNode iterate all over the linkedList*/
+	currentNode = head;			/*currentNode init with head,i.e first element of the linked list*/
+	node *index = new node;	/*holds the index of the current node*/
+	int temp;		/*temporary var for swapping*/
+	/*if linked list is empty*/
+	if(count < 1){
+		return;
+	}
+	/*while currentNode does not reaches last node*/
+	while(currentNode->nextNode != NULL){
+		/*holds the address of the nest node*/
+		index = currentNode->nextNode;
+		/*sorting, while index does not reaches last node*/
+		while(index != NULL){
+			/*if the previous value is smaller than after value*/
+			if(currentNode->data > index->data){
+				/*swap value of variable*/
+				temp = currentNode->data;
+				currentNode->data = index->data;
+				index->data = temp;
+			}
+			/*move ahead of current node to next node*/
+			index = index->nextNode;
+		}
+		/*move ahead ti next node*/
+		currentNode = currentNode->nextNode;
+	}
 }
