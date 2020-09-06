@@ -18,9 +18,6 @@
 ----------------
 
 */
-
-
-
 /*
 How to use:
 1. Instantiate LinkedList class, e.g LinkedList<typename> ll;
@@ -40,12 +37,21 @@ class LinkedList
 	int count;	/*to keep a count of number of nodes present in linked list*/
 	
 	public:
+	/*default constructor if linked list is created without any constructor parameters*/
 	LinkedList(){
 		head = NULL;		/*points to first node of linked list*/
 		tail = NULL;		/*points to last node of linked list*/
 		count = 0;
 	}
-
+	/*cobstructor if linked list is created with one value*/
+	LinkedList(T value){
+		node *temp = new node;	/*allocate a node*/
+		temp->data = value;	/*assign data to node*/
+		temp->nextNode = NULL;	/*set next node to NULL*/
+		head = temp;	/*as it is first node,assign it with temp as head because it first node*/
+		tail = temp;	/*tail will also be temp node because there's only one node'*/
+		temp = NULL;	
+	}
 	void insert(T value);	/*method to create a new node*/
 	void display();	/*method to display all value of nodes of linkedlist*/
 	void insertAtFront(T value);		/*method to insert element at head of linkedlist*/
@@ -56,17 +62,19 @@ class LinkedList
 	void sortLinkedList();	/*method to sort linked list*/
 	bool search(T value);	/*method to search first occurence of element in linked list*/
 	int allOccurence(T value); /*method to get number of times element have occured in linked list*/
+	
+	
 };
 
 
 int main(int argc, char const *argv[])
 {
 
-	LinkedList<float> llist;
-	llist.insert(5.2);
-	llist.insert(56.52);
+	LinkedList<char> llist('s');
+	llist.insert('d');
+	llist.insert('z');
 	
-	llist.insertAtFront(5.2);
+	llist.insertAtFront('a');
 	
 	//l.insertAtPosition(4,45);
 	/*22,25,78*/
