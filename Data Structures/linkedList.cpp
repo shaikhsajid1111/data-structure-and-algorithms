@@ -1,6 +1,7 @@
 /*linear linked list*/
 #include<iostream>
 #include<cstdlib>
+
 /*
 -----------------
 |	   |		|
@@ -18,23 +19,26 @@
 
 */
 
-struct node
-{
-	int data;
-	node *nextNode;
-};
+
 
 /*
 How to use:
-1. Instantiate LinkedList class, e.g LinkedList ll;
+1. Instantiate LinkedList class, e.g LinkedList<typename> ll;
 2. Call its methods like ll.methodName();
 */
+template <typename T>
 class LinkedList 
 {
 	private:
+	/*linked list's node structure*/
+	struct node
+{
+	T data;	/*to hold data of node*/
+	node *nextNode;	/*to hold next node's connection*/
+};
 	node *head,*tail;		/*variables to keep tracks of first and last element of linked list*/
 	int count;	/*to keep a count of number of nodes present in linked list*/
-
+	
 	public:
 	LinkedList(){
 		head = NULL;		/*points to first node of linked list*/
@@ -42,36 +46,39 @@ class LinkedList
 		count = 0;
 	}
 
-	void insert(int value);	/*method to create a new node*/
+	void insert(T value);	/*method to create a new node*/
 	void display();	/*method to display all value of nodes of linkedlist*/
-	void insertAtFront(int value);		/*method to insert element at head of linkedlist*/
-	void insertAtPosition(int pos,int value);/*method to insert Element at some given position of linked list*/
+	void insertAtFront(T value);		/*method to insert element at head of linkedlist*/
+	void insertAtPosition(int pos,T value);/*method to insert Element at some given position of linked list*/
 	void deleteAtFront();	/*method to delete element at head of linked list*/
 	void deleteAtEnd();	/*method to delete element at the end(tail) of linked list*/
 	void deleteAtPosition(int pos);	/*method to delete element at some position of linked list*/
-	void sortLinkedList();
+	void sortLinkedList();	/*method to sort linked list*/
+	bool search(T value);	/*method to search first occurence of element in linked list*/
+	int allOccurence(T value); /*method to get number of times element have occured in linked list*/
 };
 
 
 int main(int argc, char const *argv[])
 {
 
-	LinkedList llist;
-	for(int i = 100;i > 0;i--){
-		llist.insert(i);
-	}
-	//llist.insertAtFront(22);
+	LinkedList<float> llist;
+	llist.insert(5.2);
+	llist.insert(56.52);
+	
+	llist.insertAtFront(5.2);
 	
 	//l.insertAtPosition(4,45);
 	/*22,25,78*/
-	llist.deleteAtPosition(45);
+	
 	//llist.sortLinkedList();
+	
 	llist.display();
 	system("pause");
 	return 0;
 }
-
-void LinkedList::insert(int value){
+template<class T>
+void LinkedList<T>::insert(T value){
 	
 	node *temp = new node; /*allocate new node*/
 	
@@ -93,8 +100,8 @@ void LinkedList::insert(int value){
 	}
 	count++;	/*increase count of nodes*/
 }
-
-void LinkedList::display(){
+template<class T>
+void LinkedList<T>::display(){
 	node *temp = new node;		/*create a new node*/
 	 
 	temp = head;		/*init temp with first element of linkedlist*/
@@ -105,7 +112,8 @@ void LinkedList::display(){
 		temp = temp->nextNode;		/*move one element ahead of current*/
 	}
 }
-void LinkedList::insertAtFront(int value){
+template<class T>
+void LinkedList<T>::insertAtFront(T value){
 	/*
 	 * steps:
 	 1. Create a new node
@@ -125,7 +133,8 @@ void LinkedList::insertAtFront(int value){
 	count++;
 }
 
-void LinkedList::insertAtPosition(int pos,int value){
+template<class T>
+void LinkedList<T>::insertAtPosition(int pos,T value){
 	/*
 	1. Make 2 pointer and temp of type node, first to hold address of previous node and one to keep addres of current node
 	2. iterate over linked list for pos number of times
@@ -162,8 +171,8 @@ void LinkedList::insertAtPosition(int pos,int value){
 	temp->nextNode = addressOfCurrentNode;	/*join the nextNode of temp to its next memory location*/
 	count++;
 }
-
-void LinkedList::deleteAtFront(){
+template<class T>
+void LinkedList<T>::deleteAtFront(){
 	/*
 	 1. Create a temp node of type node
 	 2. Assign temp with head node 
@@ -185,8 +194,8 @@ void LinkedList::deleteAtFront(){
 	delete temp;	/*finally delete that first node*/
 	count--;
 }
-
-void LinkedList::deleteAtEnd(){
+template<class T>
+void LinkedList<T>::deleteAtEnd(){
 	/*if no element is present in linked list*/
 	if(count < 1){
 		std::cout << "Linked List is empty!";
@@ -210,7 +219,8 @@ void LinkedList::deleteAtEnd(){
 	delete currentNode;		/*and removed last element present in currentNode will be deleted*/
 	count --;
 }
-void LinkedList::deleteAtPosition(int pos){
+template<class T>
+void LinkedList<T>::deleteAtPosition(int pos){
 	/*if given index is not present in linked list*/
 	if(count < pos-1){
 		std::cout << "Linked List does not have element with index " << pos << std::endl;
@@ -232,8 +242,8 @@ void LinkedList::deleteAtPosition(int pos){
 	previousNode->nextNode = currentNode->nextNode;	/*assign previousNode the value of currentNode's next element and skip currentNode's node which will be skipped or deleted*/
 	count--;
 }
-
-void LinkedList::sortLinkedList(){
+template<class T>
+void LinkedList<T>::sortLinkedList(){
 	node *currentNode = new node;	/*currentNode iterate all over the linkedList*/
 	currentNode = head;			/*currentNode init with head,i.e first element of the linked list*/
 	node *index = new node;	/*holds the index of the current node*/
@@ -261,4 +271,42 @@ void LinkedList::sortLinkedList(){
 		/*move ahead ti next node*/
 		currentNode = currentNode->nextNode;
 	}
+}
+template<class T>
+bool LinkedList<T>::search(T value){
+	/*linear search for element in linked list*/
+	if(count < 1){
+		std::cout << "Linked list is empty!" << std::endl;
+		return false;
+		}
+	node *temp = new node;	/*temporary node for iterating over linked list*/
+	temp = head;	/*init with head, iterate from beginning*/
+	while(temp != NULL){	/*while it does not reaches NULL*/
+		if(temp->data == value){
+			/*if node's data matches the given value,return true'*/
+			return true;
+		}
+		temp = temp->nextNode;	/*move ahead to next node*/
+	}
+	/*if nothing found returns false*/
+	return false;
+}
+template<class T>
+int LinkedList<T>::allOccurence(T value){
+	if(count < 1){
+		std::cout << "Linked list is empty!" << std::endl;
+		return 0;
+		}
+		int occuranceCount = 0;
+		node *temp = new node;	/**temporary node for iterating over linked list*/
+		temp = head;
+		while(temp != NULL){
+			if(temp->data == value){
+				/*if element matches,than increase vakue of count by 1*/
+				occuranceCount++;
+				}
+			temp = temp->nextNode; /*move one node ahead*/
+		
+		}
+		return occuranceCount;
 }
