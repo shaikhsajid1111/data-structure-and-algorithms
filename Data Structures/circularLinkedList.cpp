@@ -24,10 +24,12 @@ class circularLinkedList{
 			temp->nextNode = last;	/*now temp's nextNode should point to last as it is the first node*/
 		
 		}
-	void insert(T value);	
-	void display();
+	void insert(T value);	/*method to insert value into linked list*/
+	void display();	/*method to display all content of linked list*/
 	void addAtFront(T value);
-	void addAtPosition(int pos,T value);
+	void addAfter(int pos,T value);
+	void deleteNode(T value);
+	int search(T value);
 	};
 
 
@@ -42,7 +44,10 @@ int main(int argc,char const **argv){
 	cll.insert(103);
 	cll.insert(10);
 	cll.insert(9);
-	cll.addAtPosition(2,22);
+	cll.deleteNode(103);
+	cll.deleteNode(10);
+	cll.deleteNode(101);
+	
 	cll.display();
 	system("pause");
 	return 0;
@@ -69,8 +74,8 @@ void circularLinkedList<T>::insert(T value){
     }
     else{
 		/*if node is already presents in linked list*/
-		newNode->nextNode = last->nextNode;	/*temp will be last element of linked list, so temp should point to last's nextNode*/ 
-        last->nextNode = newNode;	/*last points to last element as well*/	
+		newNode->nextNode = last->nextNode;	/*temp will be last element of linked list, so newNode should point to last's nextNode*/ 
+        last->nextNode = newNode;	/*last node points to last element as well*/	
         last = newNode;	/*now temp is last node*/
 	
 
@@ -112,32 +117,33 @@ void circularLinkedList<T>::addAtFront(T value){
 }
 
 template<class T>
-void circularLinkedList<T>::addAtPosition(int pos,T value){
+void circularLinkedList<T>::addAfter(int pos,T value){
 	if(last == NULL){
 		std::cout << "List is empty!" << std::endl;
 		return;
 	}
 	
 	node *newNode = new node;
-	node *iter = new node;
+	node *currentNode = new node;
 	
-	iter = last->nextNode;
+	currentNode = last->nextNode;
 	
 	for(int i =0;i < pos-1;i++){
-		iter = iter->nextNode;
+		currentNode = currentNode->nextNode;
 		
-		if(iter == last->nextNode){
+		if(currentNode == last->nextNode){	/*if current node itself matches the first node*/
 			std::cout << "Only " << pos << "in list" << std::endl;
 			return;
 		}
 		
-		newNode->nextNode = iter->nextNode; /*Join newNode to its next element*/
+		newNode->nextNode = currentNode->nextNode; /*we have address of current node and we have to join this new node to its next node
+		so we will point it to simply the nextNode of current's ahead node*/
 		newNode->data = value;	/*assign data to newNode*/
-		iter->nextNode = newNode;	 /*join current's node back node to newNode*/
+		currentNode->nextNode = newNode;	 /*Now current node's next node has been inserted so, it should point to newNode*/
 		
 		}
 		/*if position was last position of linked list*/
-		if(iter == last){
+		if(currentNode == last){
 			last = newNode;	/*last element is now current element*/
 			}
 	
@@ -145,3 +151,64 @@ void circularLinkedList<T>::addAtPosition(int pos,T value){
 	
 
 }
+
+template <class T>
+void circularLinkedList<T>::deleteNode(T value){
+	node *temp = new node;	/*temporary node*/
+	node *iterator = new node;	/**/
+	
+	iterator = last->nextNode;
+	/*if first element contains only one element and element that has to be deleted*/
+	if(last->nextNode == last && last->data == value){
+		temp = last;	/*hold the address of element to be deleted*/
+		last = NULL;	/*set last to NULL because it is first element*/
+		free(temp);	/*free the space*/
+		return;
+		}
+	/*if value matches first element that has to be deleted*/	
+	if(iterator->data == value){
+		temp = iterator;	/*hold the current iterator*/
+		iterator->nextNode = iterator->nextNode; /*move address of previous node to next next node*/	
+		free(temp);	/*deallocate memory*/
+		return;
+			
+			}
+	/*if element is to deleted from between*/
+	while(iterator->nextNode != last){	/*iterate over the linked list*/
+		/*if value matches the data of linked list*/
+		if(iterator->nextNode->data == value){
+			temp = iterator->nextNode;	/*hold the nextNode node address to temp variable*/
+			iterator->nextNode = temp->nextNode;	/*move one node ahead and connect it to next node to previous*/
+			free(temp);	/*deallocate memory*/
+			return;
+			
+			}
+		iterator = iterator->nextNode;	/*iterate ahead to nextNode*/
+		}
+	/*if element is last element of linkedlist*/
+	if(iterator->nextNode->data == value){
+		temp = iterator->nextNode;
+		iterator->nextNode = last->nextNode;
+		free(temp);
+		last = iterator;	/*now second last element is last*/
+		}
+}
+template<class T>
+int circularLinkedList<T>::search(T value){
+		
+		node *temp = new node;
+		int counter = 0;
+		temp = last->nextNode;	/*assign first node value to temp*/
+		
+		/*traversing the linked list*/
+		while(temp != last){/*while temp does not reach last element*/
+			counter++;	/*increment by 1*/
+			if(temp->data == value){	/*if it matches,than return counter which tells the position*/
+				return counter; 
+				} 
+				temp = temp->nextNode; /*move ahead to next node*/
+			};
+			
+			return false;
+	
+	}
