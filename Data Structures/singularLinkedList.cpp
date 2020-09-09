@@ -53,28 +53,39 @@ class LinkedList
 		temp = NULL;	
 	}
 	void insert(T value);	/*method to create a new node*/
+	
 	void display();	/*method to display all value of nodes of linkedlist*/
+	
 	void insertAtFront(T value);		/*method to insert element at head of linkedlist*/
 	void insertAtPosition(int pos,T value);/*method to insert Element at some given position of linked list*/
+	
 	void deleteAtFront();	/*method to delete element at head of linked list*/
 	void deleteAtEnd();	/*method to delete element at the end(tail) of linked list*/
 	void deleteAtPosition(int pos);	/*method to delete element at some position of linked list*/
+	
 	void sortLinkedList();	/*method to sort linked list*/
+	
 	bool search(T value);	/*method to search first occurence of element in linked list*/
+	
 	int allOccurence(T value); /*method to get number of times element have occured in linked list*/
 	
-	
+	void merge(LinkedList);
 };
 
 
 int main(int argc, char const *argv[])
 {
 
-	LinkedList<char> llist('s');
-	llist.insert('d');
-	llist.insert('z');
+	LinkedList<int> llist(1);
+	llist.insert(2);
+	llist.insert(3);
+	llist.insert(10);	
 	
-	llist.insertAtFront('a');
+	LinkedList<int> llist2(4);
+	llist2.insert(5);
+	llist2.insert(15);
+	
+	llist.merge(llist2);
 	
 	//l.insertAtPosition(4,45);
 	/*22,25,78*/
@@ -82,7 +93,6 @@ int main(int argc, char const *argv[])
 	//llist.sortLinkedList();
 	
 	llist.display();
-	system("pause");
 	return 0;
 }
 template<class T>
@@ -188,7 +198,7 @@ void LinkedList<T>::deleteAtFront(){
 	 4. now delete that temp var, which has stored previous head address.
 	 */
 	/*if no element is present in linked list*/
-	if(count < 1){
+	if(head == NULL){
 		std::cout << "Linked List is empty!";
 		return;
 	}
@@ -205,7 +215,7 @@ void LinkedList<T>::deleteAtFront(){
 template<class T>
 void LinkedList<T>::deleteAtEnd(){
 	/*if no element is present in linked list*/
-	if(count < 1){
+	if(head == NULL){
 		std::cout << "Linked List is empty!";
 		return;
 	}
@@ -257,7 +267,7 @@ void LinkedList<T>::sortLinkedList(){
 	node *index = new node;	/*holds the index of the current node*/
 	int temp;		/*temporary var for swapping*/
 	/*if linked list is empty*/
-	if(count < 1){
+	if(head == NULL){
 		return;
 	}
 	/*while currentNode does not reaches last node*/
@@ -283,7 +293,7 @@ void LinkedList<T>::sortLinkedList(){
 template<class T>
 bool LinkedList<T>::search(T value){
 	/*linear search for element in linked list*/
-	if(count < 1){
+	if(head == NULL){
 		std::cout << "Linked list is empty!" << std::endl;
 		return false;
 		}
@@ -301,7 +311,7 @@ bool LinkedList<T>::search(T value){
 }
 template<class T>
 int LinkedList<T>::allOccurence(T value){
-	if(count < 1){
+	if(head == NULL){
 		std::cout << "Linked list is empty!" << std::endl;
 		return 0;
 		}
@@ -318,3 +328,17 @@ int LinkedList<T>::allOccurence(T value){
 		}
 		return occuranceCount;
 }
+
+template<class T>
+void LinkedList<T>::merge(LinkedList ll){
+	/*if linked list is empty*/
+	if(head == NULL or ll.head == NULL){
+		std::cout << "Linked list is empty!" << std::endl;
+		}
+		
+	tail->nextNode = ll.head;	/*join current tail's to next link list's head*/
+	tail = ll.tail;	/*now tail is tail of other linkedlist*/
+	
+	count += ll.count;
+	
+	}

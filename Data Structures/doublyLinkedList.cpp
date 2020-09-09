@@ -41,6 +41,8 @@ public:
 	void backwardTraverse();
 	void forwardTraverse();
 	
+	void merge(Doubly_linked_list);
+	
 	void sort();
 
 };
@@ -48,11 +50,17 @@ public:
 
 int main(int argc, char const *argv[])
 {
-	Doubly_linked_list<int> dll(1000);
+	Doubly_linked_list<int> dll(1);
 
-	dll.insert(564);
-	dll.insert(87);
-	dll.sort();
+	dll.insert(2);
+	dll.insert(3);
+	Doubly_linked_list<int> dll2(4);
+	dll2.insert(5);
+	dll2.insert(6);
+	dll.merge(dll2);
+	Doubly_linked_list<int> dll3(7);
+	dll3.insert(8);
+	dll.merge(dll3);
 	dll.forwardTraverse();
 	return 0;
 }
@@ -292,5 +300,24 @@ void Doubly_linked_list<T>::sort(){
 		
 		currentNode = currentNode->nextNode;	/*move ahead to next node*/
 		}
+	
+	}
+template<class T>
+void Doubly_linked_list<T>::merge(Doubly_linked_list dll){
+	
+	if(front == NULL or dll.front == NULL){
+		std::cout << "Linked list is empty!" << std::endl;
+		return;
+		}
+	
+	dll.front->prevNode = end;	/*change the given linked list's front node's prevNode to point towards current linked list's
+	end, so they can join
+	*/
+	end->nextNode = dll.front;	/*now join end's nextNode to given linkedlist's front which was before NULL*/
+	/*now connection is made between the 2 linked list*/
+	
+	end = dll.end;/*now override end with the end of given linkedlist,because length is increased as well*/
+
+	
 	
 	}
