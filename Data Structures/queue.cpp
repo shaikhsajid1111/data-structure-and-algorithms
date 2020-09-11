@@ -3,17 +3,25 @@
 #define MAX 1000
 #endif
 
+template<typename T>
 class Queue{
-	int first,last,array[MAX];
+	int first = -1;
+	int last = -1;
+	T array[MAX];
 public:
 	Queue(){
 		/*-1 represents that queue is empty*/
 		first = -1;
 		last = -1;
 	}
-	void enqueue(int value);
-	void dequeue();
-	void printThis();
+	Queue(T value){
+
+		array[++last] = value;
+		first++;
+		}
+	void enqueue(T value);	/*method to add element to queue*/
+	void dequeue();	/*method to delete element of queue*/
+	void printThis();	/*method traverse queue*/
 
 
 	/* Structure
@@ -35,18 +43,28 @@ public:
 
 int main(int argc, char const *argv[])
 {
-	Queue queue;
-	queue.enqueue(2);
-	queue.enqueue(5);
+	Queue<char> queue('s');
+	//queue.enqueue('s');
+	queue.enqueue('a');
+	queue.enqueue('j');
+	queue.enqueue('i');
+	queue.enqueue('d');
+	
+	//queue.dequeue();
+	//queue.dequeue();
+	//queue.dequeue();
+	
 	queue.printThis();
 	return 0;
 }
-void Queue::enqueue(int value){\
+
+template<typename T>
+void Queue<T>::enqueue(T value){
 	/*if queue is already empty*/
 	if(first == -1){
 		first++;				
 	}
-	array[++last] = value;	/*insert value at increment value of last variable*/
+	array[++last] = value;	/*insert element at the last+1 position*/
 	/*
 	Demonstration:
 		  
@@ -65,22 +83,18 @@ void Queue::enqueue(int value){\
 
 	*/
 }
-void Queue::dequeue(){
+template<class T>
+void Queue<T>::dequeue(){
 	/*Dequeue is the process of removing one element from the queue, in Queues, we remove element from the bottom
 	as per the rule of FIFO*/
-	if(first == -1){		/*if the first value is empty itself, queue is empty*/
-		std::cout << "Empty!" << std::endl;
+	if(first == -1){
+		std::cout << "Queue is empty!" << std::endl;
 		return;
-	}
-	/*for maintaining Queue, it is necessary that start and last count should be equals*/
-	if(first == last){
-		first = -1;
-		last = -1;
-		return;
-	}
-	first++;
+		}
+	first++;	/*move first ahead to next element and first element will be skipped,resulting in deleteion of first element*/
 }
-void Queue::printThis(){
+template<class T>
+void Queue<T>::printThis(){
 	if(first != -1){
 		for(int i = first;i <= last;i++){
 			std::cout << array[i] << std::endl;

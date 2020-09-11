@@ -3,37 +3,50 @@
 #define MAX 1000
 
 /*stack class*/
+template<typename T>
 class Stack{
-	int top;	
+	int top = -1;	
 public:
-	int array[MAX];
+	T array[MAX];
 	Stack(){
 		top = -1;
 
 	}
+	Stack(T value){
+		array[++top] = value;
+	
+		}
 
 	/*Stack's method*/
-	bool push(int value);
+	bool push(T);
 	bool pop();
 	int peek();
 	bool isEmpty();
 	int getTop();
+	void traverse();
+	
+
 };
 
-void traverseStack(Stack object);
+
 
 int main(int argc, char const *argv[])
 {
-	Stack stack;
-	for(int i = 0;i < 20;i++){
-		stack.push(i + 1);
-	}
-	traverseStack(stack);
-	system("pause");
+	
+	Stack<int> stack(4);
+	stack.push(5);
+	stack.push(6);
+	
+	stack.push(7);
+
+	stack.traverse();
+	
+	
 	return 0;
 }
 /*Stack function defintion*/
-bool Stack::push(int value){
+template<class T>
+bool Stack<T>::push(T value){
 	/*push function of stack is use for inseting value in stack*/
 	/*checking if stack is already full or overflowing*/
 	if(top >= (MAX-1)){				/*if content of top variable is bigger than equals to 999, because array limit is 1000*/
@@ -46,7 +59,8 @@ bool Stack::push(int value){
 		return true;			/*returning success*/
 	}
 }
-bool Stack::pop(){
+template<class T>
+bool Stack<T>::pop(){
 	/*pop removes the last value from the stack*/
 	/*checking if, stack is empty*/
 	if(top < 0){				/*if top == -1, than stack is empty. -1 in stack represents that stack is empty*/
@@ -60,7 +74,8 @@ bool Stack::pop(){
 	}
 
 }
-int Stack::peek(){
+template<class T>
+int Stack<T>::peek(){
 	/*peek function lets you have a look at the current value of stack*/
 	/*if top is not equals to -1*/
 	if(top < 0){
@@ -72,19 +87,21 @@ int Stack::peek(){
 		return array[top];
 	}
 }
-bool Stack::isEmpty(){
+template<class T>
+bool Stack<T>::isEmpty(){
 	/*if top is less than 0, it is empty*/
 	return (top < 0);
 }
-int Stack::getTop(){
+template<class T>
+int Stack<T>::getTop(){
 	return top;
 }
-
-void traverseStack(Stack object){
+template<class T>
+void Stack<T>::traverse(){
 	int i = 0;
 	/*iterating over the stack's array*/
-	while(i < object.peek()){
-		std::cout << object.array[i] << std::endl;
+	do{
+		std::cout << array[i] << std::endl;
 		i++;
-	}
+	}while(i <= top);
 }
