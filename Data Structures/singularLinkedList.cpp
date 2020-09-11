@@ -41,7 +41,7 @@ class LinkedList
 	LinkedList(){
 		head = NULL;		/*points to first node of linked list*/
 		tail = NULL;		/*points to last node of linked list*/
-		count = 0;
+	
 	}
 	/*cobstructor if linked list is created with one value*/
 	LinkedList(T value){
@@ -69,7 +69,9 @@ class LinkedList
 	
 	int allOccurence(T value); /*method to get number of times element have occured in linked list*/
 	
-	void merge(LinkedList);
+	void merge(LinkedList);	/*method to merge 2 linked list*/
+		
+	int nodeCount();	/*method to count number of node in linked list*/
 };
 
 
@@ -86,7 +88,8 @@ int main(int argc, char const *argv[])
 	llist2.insert(15);
 	
 	llist.merge(llist2);
-	
+	llist.insertAtFront(0);
+	std::cout << llist.nodeCount() << "End" <<std::endl;
 	//l.insertAtPosition(4,45);
 	/*22,25,78*/
 	
@@ -116,7 +119,7 @@ void LinkedList<T>::insert(T value){
 		tail->nextNode = temp;	/*tail will have the memory location of this current node as it is the last node inserted*/
 		tail = temp;		
 	}
-	count++;	/*increase count of nodes*/
+	//count++;	/*increase count of nodes*/
 }
 template<class T>
 void LinkedList<T>::display(){
@@ -148,7 +151,7 @@ void LinkedList<T>::insertAtFront(T value){
 	temp->data = value;		/*init that node's(temp) data value = data*/
 	temp->nextNode = head;	/*init temp's next node value to front of current linkedlist*/
 	head = temp;		/*make this node as first node*/
-	count++;
+	//count++;
 }
 
 template<class T>
@@ -187,7 +190,7 @@ void LinkedList<T>::insertAtPosition(int pos,T value){
 	/*insert node into the linkedlist at pos*/
 	addressOfPreviousNode->nextNode = temp;
 	temp->nextNode = addressOfCurrentNode;	/*join the nextNode of temp to its next memory location*/
-	count++;
+	//count++;
 }
 template<class T>
 void LinkedList<T>::deleteAtFront(){
@@ -210,7 +213,7 @@ void LinkedList<T>::deleteAtFront(){
 	one node ahead*/
 
 	delete temp;	/*finally delete that first node*/
-	count--;
+	//count--;
 }
 template<class T>
 void LinkedList<T>::deleteAtEnd(){
@@ -235,7 +238,7 @@ void LinkedList<T>::deleteAtEnd(){
 	tail = previousNode;	/*tail is assigned second last value of linked list*/
 	previousNode->nextNode = NULL;	/*and previoudNode's nextNode is assigned NULL because now it is the last element of the linked list*/
 	delete currentNode;		/*and removed last element present in currentNode will be deleted*/
-	count --;
+	//count --;
 }
 template<class T>
 void LinkedList<T>::deleteAtPosition(int pos){
@@ -258,7 +261,7 @@ void LinkedList<T>::deleteAtPosition(int pos){
 	}
 	/*we have moved to required positions*/
 	previousNode->nextNode = currentNode->nextNode;	/*assign previousNode the value of currentNode's next element and skip currentNode's node which will be skipped or deleted*/
-	count--;
+//	count--;
 }
 template<class T>
 void LinkedList<T>::sortLinkedList(){
@@ -339,6 +342,19 @@ void LinkedList<T>::merge(LinkedList ll){
 	tail->nextNode = ll.head;	/*join current tail's to next link list's head*/
 	tail = ll.tail;	/*now tail is tail of other linkedlist*/
 	
-	count += ll.count;
+
+	
+	}
+template<class T>
+int LinkedList<T>::nodeCount(){
+	node *temp = new node;
+	int count = 0;	/*to keep a count of node presents*/
+	temp = head;	/*to iterate from head to tail*/
+	
+	do{
+		count++;	/*increment on each iterate*/
+		temp = temp->nextNode;	/*move one node ahead*/
+		}while(temp!=NULL);
+	return count;
 	
 	}
