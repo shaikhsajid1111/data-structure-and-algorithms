@@ -72,6 +72,9 @@ class LinkedList
 	void merge(LinkedList);	/*method to merge 2 linked list*/
 		
 	int nodeCount();	/*method to count number of node in linked list*/
+	
+	void reverse(); /*method to reverse a linked list*/
+	
 };
 
 
@@ -89,6 +92,7 @@ int main(int argc, char const *argv[])
 	
 	llist.merge(llist2);
 	llist.insertAtFront(0);
+	llist.reverse();
 	std::cout << llist.nodeCount() << "End" <<std::endl;
 	//l.insertAtPosition(4,45);
 	/*22,25,78*/
@@ -358,3 +362,20 @@ int LinkedList<T>::nodeCount(){
 	return count;
 	
 	}
+template<class T>
+void LinkedList<T>::reverse(){
+		node *current = new node;
+		current = head;
+		node *prev,*next = new node;
+		prev = next = NULL;
+		
+		while(current != NULL){
+			next = current->nextNode;
+			current->nextNode = prev;
+			
+			prev = current;
+			current = next;
+			
+			}
+			head = prev;
+}
