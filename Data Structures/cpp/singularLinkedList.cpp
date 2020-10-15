@@ -364,18 +364,19 @@ int LinkedList<T>::nodeCount(){
 	}
 template<class T>
 void LinkedList<T>::reverse(){
-		node *current = new node;
-		current = head;
-		node *prev,*next = new node;
+		node *current = new node;	/*holds the current node*/
+		current = head;	/*starts from head*/
+		node *prev,*next = new node;	/*previous and nextNode to hold of node ahead and previous*/
 		prev = next = NULL;
 		
-		while(current != NULL){
-			next = current->nextNode;
-			current->nextNode = prev;
+		while(current != NULL){		
+			/*while linked list does not reaches end*/
+			next = current->nextNode;	/*holds the next node*/
+			current->nextNode = prev;	/*now change current's next pointer to point towards backward*/
 			
-			prev = current;
-			current = next;
+			prev = current;	/*prev holds the current node*/
+			current = next;	/*and current holds the next node*/
 			
 			}
-			head = prev;
+			head = prev;	/*after reversing, head should to point to prev as it is first now*/
 }

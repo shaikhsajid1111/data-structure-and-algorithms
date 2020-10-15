@@ -45,11 +45,8 @@ int main(int argc, char const *argv[])
 {
 	Queue<char> queue('s');
 	//queue.enqueue('s');
+	queue.dequeue();
 	queue.enqueue('a');
-	queue.enqueue('j');
-	queue.enqueue('i');
-	queue.enqueue('d');
-	
 	//queue.dequeue();
 	//queue.dequeue();
 	//queue.dequeue();
@@ -91,7 +88,7 @@ void Queue<T>::dequeue(){
 		std::cout << "Queue is empty!" << std::endl;
 		return;
 		}
-	first++;	/*move first ahead to next element and first element will be skipped,resulting in deleteion of first element*/
+	first++;	/*move first/front ahead to next element and first element will be skipped,resulting in deleteion of first element*/
 }
 template<class T>
 void Queue<T>::printThis(){
