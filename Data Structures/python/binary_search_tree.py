@@ -15,12 +15,11 @@ def new_node(root,data):
  
 def insert(root,data):
     if root is None:
-        return new_node(data)
+        return new_node(root,data)
     if data < root.data:
-        root.left = new_node(root.left,data)
-    elif data > root.data:
-        root.right = new_node(root.right,data)
-    return root
+        root.left = insert(root.left,data)
+    if data > root.data:
+        root.right = insert(root.right,data)
 
 def pre_order(root):
     """prints the data in root->left->right"""
@@ -42,6 +41,11 @@ def post_order(root):
         post_order(root.left)
         post_order(root.right)
         print(root.data)
+def maximum(root):
+    current = root
+    while current.right is not None:
+        current = current.right
+    return current.data
 
 def minimum(root):
     current = root
@@ -52,5 +56,5 @@ def minimum(root):
 if __name__ == "__main__":
     BST = Tree(12)
     insert(BST,45)
-    in_order(BST)
-    print(minimum(BST))
+   
+    print(maximum(BST))
