@@ -143,6 +143,15 @@ class LinkedList:
                 counter += 1
             temp = temp.nextNode
         return counter
+    
+    def merge(self,l1):
+        if self.head is None:
+            return l1
+        elif l1 is None:
+            return self.head
+        self.tail.nextNode = l1.head
+        return self.head
+
     def print(self):
         """prints the linked list"""
         temp = self.head
@@ -158,5 +167,5 @@ if __name__ == "__main__":
     ll.insert('d')
     ll.insert('a')
     ll.insert('a')
-    
+
     ll.print()
