@@ -75,6 +75,7 @@ class LinkedList
 	
 	void reverse(); /*method to reverse a linked list*/
 	
+	bool hasCycle();
 };
 
 
@@ -379,4 +380,31 @@ void LinkedList<T>::reverse(){
 			
 			}
 			head = prev;	/*after reversing, head should to point to prev as it is first now*/
+}
+
+template<class T>
+bool LinkedList<T>::hasCycle(){
+	/*if head is alreadt NULL that means it does not have any node, i.e no cycle*/
+	if(head == NULL){
+		return false;
+	}
+	/*slowPointer pointer traverses normally,while fastPointer traverses twice fast as slowPointer*/
+	node *slowPointer = new node;
+	node *fastPointer = new node;
+
+	slowPointer = head;			/*starts from head node*/
+	fastPointer = head.nextNode;	/*starts from next node of head*/
+
+	/*if slowpointer equals fastPointer it means fastPointer have traversed through cycle and there's a cycle*/
+	while(slowPointer != fastPointer){
+		/*while traversing if fastPointer reaches NULL it means there no cycle*/
+		if(fastPointer == NULL || slowPointer != NULL){
+			return false;
+		}
+
+	slowPointer = slowPointer.nextNode;		/*move forward one node at time*/
+	fastPointer = fastPointer.nextNode.nextNode;	/*move twice fast as slowPointer*/
+
+	}
+	return true;	/*if it exits loops successfully*/
 }

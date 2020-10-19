@@ -152,6 +152,20 @@ class LinkedList:
         self.tail.nextNode = l1.head
         return self.head
 
+    def has_cycle(self):
+        if self.head is None:
+            return False
+        slow_pointer = self.head
+        fast_pointer = self.head.nextNode
+
+        while slow_pointer != fast_pointer:
+            if fast_pointer is None or fast_pointer.nextNode is None:
+                return False
+            slow_pointer = slow_pointer.nextNode
+            fast_pointer = fast_pointer.nextNode.nextNode
+
+        return True 
+
     def print(self):
         """prints the linked list"""
         temp = self.head
