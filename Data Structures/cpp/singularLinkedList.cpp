@@ -34,7 +34,7 @@ class LinkedList
 	node *nextNode;	/*to hold next node's connection*/
 };
 	node *head,*tail;		/*variables to keep tracks of first and last element of linked list*/
-	int count;	/*to keep a count of number of nodes present in linked list*/
+	//int count;	/*to keep a count of number of nodes present in linked list*/
 	
 	public:
 	/*default constructor if linked list is created without any constructor parameters*/
@@ -169,10 +169,7 @@ void LinkedList<T>::insertAtPosition(int pos,T value){
 	5. change the temp node's nextNode to point towards the currentNode's nextNode
 	*/
 	/*if given index is not present in linked list*/
-	if(count < pos-1){
-		std::cout << "Cannot insert element because linked list does not have index " << pos << std::endl;
-		return;
-	}
+	
 	node *addressOfPreviousNode = new node;	/*node to keep track of previous node*/
 	node *addressOfCurrentNode = new node;	/*node to keep track of current node*/
 	node *temp = new node;		/*node to init and insert into linkedlist at some positions*/
@@ -181,13 +178,17 @@ void LinkedList<T>::insertAtPosition(int pos,T value){
 	that is start of linked list*/
 
 	/*iterate till the position,where it has to be inserted*/
-
+	try{
 	for (int i = 1; i < pos; i++)
 	{
 		/*as we iterate,previous node will have value of current and current will have memory location of its next element*/
 		addressOfPreviousNode = addressOfCurrentNode;	/*current node will become previous node as we iterate*/
 		addressOfCurrentNode = addressOfCurrentNode->nextNode;	/*address of current will hold the memory of node ahead of it*/
 	}
+	}
+	catch(const std::out_of_range& oor){
+		std::cerr << "Index out of range!";
+		}
 
 	/*insert data into node*/
 	temp->data = value;
@@ -218,7 +219,7 @@ void LinkedList<T>::deleteAtFront(){
 	one node ahead*/
 
 	delete temp;	/*finally delete that first node*/
-	//count--;
+	
 }
 template<class T>
 void LinkedList<T>::deleteAtEnd(){
@@ -243,30 +244,31 @@ void LinkedList<T>::deleteAtEnd(){
 	tail = previousNode;	/*tail is assigned second last value of linked list*/
 	previousNode->nextNode = NULL;	/*and previoudNode's nextNode is assigned NULL because now it is the last element of the linked list*/
 	delete currentNode;		/*and removed last element present in currentNode will be deleted*/
-	//count --;
+	
 }
 template<class T>
 void LinkedList<T>::deleteAtPosition(int pos){
 	/*if given index is not present in linked list*/
-	if(count < pos-1){
-		std::cout << "Linked List does not have element with index " << pos << std::endl;
-		return;
-	}
-
+	
 	node *currentNode = new node;	/*node to hold element of current node*/
 	node *previousNode = new node;	/*node to hold element of current node after it has move ahead to its ahead node*/
 
 	currentNode = head;	/*currentNode starts from head node that is first node*/
 
 	/*iterate and move to required position*/
+	try{
 	for (int i = 0; i < pos; i++)
 	{
 		previousNode = currentNode;		/*previousNode has value of currentNode*/
 		currentNode = currentNode->nextNode;	/*currentNode has value of one node ahead of itself,that is, it's next value*/
 	}
+	}
+	catch(const std::out_of_range& oor){
+		std::cerr << "Index out of range!";
+	}
 	/*we have moved to required positions*/
 	previousNode->nextNode = currentNode->nextNode;	/*assign previousNode the value of currentNode's next element and skip currentNode's node which will be skipped or deleted*/
-//	count--;
+
 }
 template<class T>
 void LinkedList<T>::sortLinkedList(){
