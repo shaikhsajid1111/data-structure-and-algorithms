@@ -172,6 +172,18 @@ class LinkedList:
         while temp is not None:
             print(temp.data)
             temp = temp.nextNode
+    
+    def find_n_th_element_from_backward(self,position):
+        current = self.head   #starts from head 
+        runner = self.head      #starts from head
+        for i in range(0,position):     #first move runner to position from head
+            runner = runner.nextNode
+        #now move runner to last node,and current node to its next until the runner reaches the last 
+        # when runner reaches last node than current is already have reached position from backward 
+        while runner.nextNode is not None:  
+            current = current.nextNode
+            runner = runner.nextNode
+        return current.data
         
 if __name__ == "__main__":
     ll = LinkedList('s')
@@ -181,5 +193,5 @@ if __name__ == "__main__":
     ll.insert('d')
     ll.insert('a')
     ll.insert('a')
-
-    ll.print()
+    print(ll.find_n_th_element_from_backward(4))
+    
