@@ -25,13 +25,17 @@ void inOrder(struct node* root);
 void preOrder(struct node* root);
 void postOrder(struct node* root);
 struct node *newNode(int item);
-
+struct node *invertTree(struct node *root);
 int main(int argc, char const *argv[])
 {	
 	node *bst = NULL;
 	bst = insert(bst,4);
-	insert(bst,45);
-	insert(bst,5555);
+	insert(bst,1);
+	insert(bst,2);
+	insert(bst,3);
+	insert(bst,4);
+	insert(bst,5);
+	bst = invertTree(bst);
 	postOrder(bst);
 	
 	
@@ -91,3 +95,18 @@ void postOrder(struct node* root){
 		}
 	
 	}
+
+
+struct node *invertTree(struct node *root){
+	if(root){
+		struct node *temp = new node;
+		temp = root->left;
+		root->left = root->right;
+		root->right = temp;
+
+		invertTree(root->left);
+		invertTree(root->right);
+	}
+	return root;
+
+}

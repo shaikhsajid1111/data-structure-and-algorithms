@@ -53,8 +53,18 @@ def minimum(root):
         current = current.left
     return current.data
 
+def invert_bst(root):
+    if root:
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+        invert_bst(root.left)
+        invert_bst(roo.right)
+    return root
+        
+
 if __name__ == "__main__":
     BST = Tree(12)
     insert(BST,45)
-   
+    insert(BST,5)
     print(maximum(BST))
