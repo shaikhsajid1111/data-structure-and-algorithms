@@ -34,7 +34,7 @@ class LinkedList
 	node *nextNode;	/*to hold next node's connection*/
 };
 	node *head,*tail;		/*variables to keep tracks of first and last element of linked list*/
-	//int count;	/*to keep a count of number of nodes present in linked list*/
+	
 	
 	public:
 	/*default constructor if linked list is created without any constructor parameters*/
@@ -124,7 +124,7 @@ void LinkedList<T>::insert(T value){
 		tail->nextNode = temp;	/*tail will have the memory location of this current node as it is the last node inserted*/
 		tail = temp;		
 	}
-	//count++;	/*increase count of nodes*/
+	
 }
 template<class T>
 void LinkedList<T>::display(){
@@ -156,7 +156,7 @@ void LinkedList<T>::insertAtFront(T value){
 	temp->data = value;		/*init that node's(temp) data value = data*/
 	temp->nextNode = head;	/*init temp's next node value to front of current linkedlist*/
 	head = temp;		/*make this node as first node*/
-	//count++;
+	
 }
 
 template<class T>
@@ -196,7 +196,7 @@ void LinkedList<T>::insertAtPosition(int pos,T value){
 	/*insert node into the linkedlist at pos*/
 	addressOfPreviousNode->nextNode = temp;
 	temp->nextNode = addressOfCurrentNode;	/*join the nextNode of temp to its next memory location*/
-	//count++;
+	
 }
 template<class T>
 void LinkedList<T>::deleteAtFront(){
