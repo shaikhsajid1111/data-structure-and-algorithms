@@ -86,18 +86,38 @@ class LinkedList:
         del current
     
     def reverse(self):
-        prevNode = None
-        nextNode = None
-        currentNode = self.head
+        prev_node = None
+        current_node = self.head
+        next_node = None
 
-        while currentNode is not None:
-            nextNode = currentNode.nextNode
-            
-            currentNode.nextNode = prevNode
+        while current_node is not None:
+            next_node = current_node.nextNode
+            current_node.nextNode = prev_node
+            prev_node = current_node
+            current_node = next_node
+        
+        self.head = prev_node
 
-            prevNode = currentNode
-            currentNode = nextNode
-        self.head = prevNode
+    def reverse_k_elements(self,k,head = ''):
+        if self.head is None:
+            return None
+        prev = None
+        next_ = None
+        count = 0
+        current = self.head
+        while current is not None and count < k:
+            next_ = current.nextNode
+            prev = current
+            current = next_
+
+            count += 1
+        
+        if next_ is not None:
+            self.head.next = self.reverse_k_elements(k,next_)
+
+        return prev
+
+    
 
     def exists(self,data):
         """return True if given data exists, else False"""
@@ -193,5 +213,5 @@ if __name__ == "__main__":
     ll.insert('d')
     ll.insert('a')
     ll.insert('a')
-    print(ll.find_n_th_element_from_backward(4))
-    
+    ll.reverse()
+    ll.print()
