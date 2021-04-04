@@ -87,9 +87,9 @@ void mergeSort(int arr[],int left,int right){
 	/*left is starting value of the array*/
 	/*if starting value is lower than the last*/
 	if(left < right){
-		int m = l + (r - l)/2;		/*finding middle value*/
-		mergeSort(arr,l,m);
-		mergeSort(arr,m + 1,r);
-		merge(arr,l,m,r);
+		int m = left + (right - left)/2;		/*finding middle value*/
+		mergeSort(arr,left,m);
+		mergeSort(arr,m + 1,right);
+		merge(arr,left,m,right);
 	}
 }
